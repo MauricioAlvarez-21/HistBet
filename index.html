@@ -1,0 +1,199 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <link rel="stylesheet" type="text/css" href="styles.css">
+    <style>
+        table, th, td {
+            border: 1px solid #ddd;
+            }
+
+        th, td {
+            padding: 10px;
+            text-align: center;
+            }
+
+        th {
+            background-color: #007bff;
+            color: #fff;
+            }
+
+        /* Style the "No safe bets" message */
+        .no-bets {
+            text-align: center;
+            color: #f00;
+        }
+
+        /* Style the chart container */
+        .chart-container {
+            text-align: center;
+            margin-top: 20px;
+}
+    </style>
+    <title> HistBet</title>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/4.4.0/chart.min.js" integrity="sha512-7U4rRB8aGAHGVad3u2jiC7GA5/1YhQcQjxKeaVms/bT66i3LVBMRcBI9KwABNWnxOSwulkuSXxZLGuyfvo7V1A==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
+</head>
+<body> <!-- TODO: Fix all the shit in body-->
+    <h1> HistBet</h1>
+    <h2> Welcome! This web application displays the games scheduled for each match day with the highest probability of a profitable bet, determined by analyzing historical records</h2>
+    <h3> All the games listed below are considered safe bets, and the higher the Historical Index absolute value, the safer the bet. It's advisable to diversify your wagers across your preferred games rather than betting everything on a single match. 😄</h3>
+    <form action="/" method="POST">
+        <p> Which match day are you looking to place your bets on?
+        <input type="number" name="matchDay" id="matchDay" min="1" max="38">
+        </p>
+        <input type="submit" value="Search">
+    </form>
+    {% if info==null %}
+    {% elif info|length < 2 %}
+    <h3> Showing results for Match Day {{info[0][6]}}</h3>
+    <h4 style="text-align: center">No safe bets today! Maybe next time</h4>
+    {% else %}
+    <h3> Showing results for Match Day {{info[0][6]}}</h3>
+    <table margin="2">
+        <tr>
+            <th>Game</th>
+            <th>Historical Index</th>
+            <th>Bet for </th>
+        </tr>
+        {% for data in info %}
+            <tr>
+                <td>{{ data[0] }} vs {{ data[1] }}</td>
+                <td> {{data[4]}} </td>
+                <td> {{ data[2]}}</td>
+            </tr>
+        {% endfor %}
+    </table>
+    {% endif %}
+    {% if info!=null %}
+    <h4> Bet distribution </h4>
+        {% if info|length == 3 %}
+        <div>
+            <canvas id="myChart" width="50" height="50"></canvas>
+          </div>
+          
+          <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+          
+          <script>
+            const ctx3 = document.getElementById('myChart');
+            new Chart(ctx3, {
+              type: 'doughnut',
+              data: {
+                labels: [
+                    'Red',
+                    'Blue',
+                    'Yellow'
+                ],
+                datasets: [{
+                    label: 'My First Dataset',
+                    data: [33, 33, 33],
+                    backgroundColor: [
+                    'rgb(255, 99, 132)',
+                    'rgb(54, 162, 235)',
+                    'rgb(255, 205, 86)'
+                    ],
+                    hoverOffset: 4
+                }]
+                }
+            });
+          </script>
+        {% elif info|length == 2 %}
+        <div>
+            <canvas id="myChart" width="50" height="50"></canvas>
+          </div>
+          
+          <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+          
+          <script>
+            const ctx2 = document.getElementById('myChart');
+            new Chart(ctx2, {
+              type: 'doughnut',
+              data: {
+                labels: [
+                    'Red',
+                    'Blue',
+                ],
+                datasets: [{
+                    label: 'My First Dataset',
+                    data: [50,50],
+                    backgroundColor: [
+                    'rgb(255, 99, 132)',
+                    'rgb(54, 162, 235)'
+                    ],
+                    hoverOffset: 4
+                }]
+                }
+            });
+          </script>
+        {% elif info|length == 4 %}
+        <div>
+            <canvas id="myChart" width="50" height="50"></canvas>
+          </div>
+          
+          <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+          
+          <script>
+            const ctx4 = document.getElementById('myChart');
+            new Chart(ctx4, {
+              type: 'doughnut',
+              data: {
+                labels: [
+                    'Red',
+                    'Blue',
+                    'Yellow',
+                    'Green'
+                ],
+                datasets: [{
+                    label: 'My First Dataset',
+                    data: [25,25,25,25],
+                    backgroundColor: [
+                    'rgb(255, 99, 132)',
+                    'rgb(54, 162, 235)',
+                    'rgb(255, 205, 86)',
+                    'rgb(0, 255, 0)'
+                    ],
+                    hoverOffset: 4
+                }]
+                }
+            });
+          </script>
+        {% elif info|length == 5 %}
+        <div>
+            <canvas id="myChart" width="50" height="50"></canvas>
+          </div>
+          
+          <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+          
+          <script>
+            const ctx5 = document.getElementById('myChart');
+            new Chart(ctx5, {
+              type: 'doughnut',
+              data: {
+                labels: [
+                    'Red',
+                    'Blue',
+                    'Yellow',
+                    'Green',
+                    'Purple'
+                ],
+                datasets: [{
+                    label: 'My First Dataset',
+                    data: [20,20,20,20,20],
+                    backgroundColor: [
+                    'rgb(255, 99, 132)',
+                    'rgb(54, 162, 235)',
+                    'rgb(255, 205, 86)',
+                    'rgb(0, 255, 0)',
+                    'rgb(128,0,128)'
+                    ],
+                    hoverOffset: 4
+                }]
+                }
+            });
+          </script>
+        {% endif %}
+    {% endif %}
+
+</body>
+</html>
